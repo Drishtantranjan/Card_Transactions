@@ -1,0 +1,15 @@
+{
+    "appBar": {
+        "hintText" : "Search"
+    },
+    "tips":{
+        "title":"Tips and training",
+        "service": "All services"
+    },
+    "refer" : {
+        "title" : "Refer and Earn",
+        "description" : "Share link to your \nfriends and get rewarded",
+        "button" : "Learn more"
+    }
+
+}
