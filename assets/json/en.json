@@ -2,6 +2,10 @@
     "appBar": {
         "hintText" : "Search"
     },
+    "firstRow":{
+        "transaction": "Transactions",
+        "cashback":"Cashback"
+    },
     "tips":{
         "title":"Tips and training",
         "service": "All services"

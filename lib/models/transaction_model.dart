@@ -133,3 +133,28 @@ double calculateTotalSpending(List<DailyTransactions> transactions) {
       .where((transaction) => !transaction.isCredit)
       .fold(0.0, (sum, transaction) => sum + transaction.amount);
 }
+
+class MonthlyTransactions {
+  final String month;
+  final List<DailyTransactions> dailyTransactions;
+
+  MonthlyTransactions({
+    required this.month,
+    required this.dailyTransactions,
+  });
+
+  // Calculate monthly spending for each category
+  Map<String, double> calculateMonthlySpending() {
+    Map<String, double> categorySpending = {};
+    for (var dailyTransaction in dailyTransactions) {
+      for (var transaction in dailyTransaction.transactions) {
+        if (!transaction.isCredit) {
+          categorySpending[transaction.category] =
+              (categorySpending[transaction.category] ?? 0.0) +
+                  transaction.amount;
+        }
+      }
+    }
+    return categorySpending;
+  }
+}

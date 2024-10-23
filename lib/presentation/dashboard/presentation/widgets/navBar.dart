@@ -1,50 +1,59 @@
 import 'package:flutter/material.dart';
 
+import '../../../utility/config/AssetConfig.dart';
+
 class Navbar extends StatelessWidget {
   final int selectedIndex;
-  final Function(int) onItemSelected;
 
   const Navbar({
     Key? key,
     required this.selectedIndex,
-    required this.onItemSelected,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: 80,
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            spreadRadius: 1,
-            blurRadius: 5,
-          ),
-        ],
+        color: Colors.black,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildNavItem(Icons.home, 0),
-          _buildNavItem(Icons.search, 1),
-          _buildNavItem(Icons.add_circle_outline, 2),
-          _buildNavItem(Icons.favorite_border, 3),
-          _buildNavItem(Icons.person_outline, 4),
+          _buildNavItem(Assetconfig.walletIcon, 0),
+          _buildNavItem(Assetconfig.graphIcon, 1),
+          _buildNavItem(Assetconfig.transactionIcon, 2),
+          _buildNavItem(Assetconfig.menuIcon, 3),
+          _buildNavItem(Assetconfig.settingIcon, 4),
         ],
       ),
     );
   }
 
-  Widget _buildNavItem(IconData icon, int index) {
-    return IconButton(
-      icon: Icon(
-        icon,
-        color: selectedIndex == index ? Colors.blue : Colors.grey,
-        size: 30,
+  Widget _buildNavItem(String assetPath, int index) {
+    bool isSelected = selectedIndex == index;
+
+    return Container(
+      height: 55,
+      width: 55,
+      decoration: BoxDecoration(
+        color: isSelected
+            ? Colors.grey[800]
+            : Colors.transparent, // Background for selected icon
+        borderRadius: BorderRadius.circular(20), // Rounded corners
       ),
-      onPressed: () => onItemSelected(index),
+      child: IconButton(
+        icon: ImageIcon(
+          AssetImage(assetPath),
+          color: isSelected
+              ? Colors.white
+              : Colors.grey, // Change color for selected icon
+          size: 25,
+        ),
+        onPressed: () {
+          // Handle onPressed logic
+        },
+      ),
     );
   }
 }

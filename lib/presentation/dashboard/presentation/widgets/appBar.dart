@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:transaction_heatmap/presentation/utility/AppColors.dart';
-import 'package:transaction_heatmap/presentation/utility/config/AssetConfig.dart';
+
+import '../../../utility/config/AssetConfig.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       child: AppBar(
         backgroundColor: AppColors().appBackground,
         elevation: 0,
-        leading: Center(
-          // Centering the leading widget
+        leading: const Center(
           child: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(5.0),
             child: CircleAvatar(
               foregroundImage: AssetImage(Assetconfig.avatarImage),
             ),
@@ -42,7 +42,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                     hintText: 'Search',
                     hintStyle: TextStyle(color: AppColors().hintColor),
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(vertical: 5),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 5),
                   ),
                 ),
               ),

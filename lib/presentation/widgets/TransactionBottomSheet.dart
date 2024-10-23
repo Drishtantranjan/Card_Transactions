@@ -38,7 +38,7 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet>
     final localizations = AppLocalizations.of(context)!;
 
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -130,7 +130,8 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet>
     return BarChart(
       BarChartData(
         titlesData: FlTitlesData(
-          topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          topTitles:
+              const AxisTitles(sideTitles: SideTitles(showTitles: false)),
           bottomTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
@@ -141,7 +142,7 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet>
                     orElse: () => '');
                 return SideTitleWidget(
                   axisSide: meta.axisSide,
-                  child: Container(
+                  child: SizedBox(
                     width: 50,
                     child: Text(
                       category,
@@ -153,7 +154,8 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet>
               },
             ),
           ),
-          rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          rightTitles:
+              const AxisTitles(sideTitles: SideTitles(showTitles: false)),
         ),
         barGroups: barGroups,
         borderData: FlBorderData(show: false),
