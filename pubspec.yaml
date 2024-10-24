@@ -29,3 +29,4 @@ flutter:
     - assets/images/ # For image assets
     - assets/icons/ # For icon assets,
     - assets/json/en.json
+    - assets/images/dashboard/

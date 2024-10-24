@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:transaction_heatmap/presentation/dashboard/presentation/widgets/appBar.dart';
 import 'package:transaction_heatmap/presentation/dashboard/presentation/widgets/navBar.dart';
 import 'package:transaction_heatmap/presentation/utility/AppColors.dart';
+import 'package:transaction_heatmap/presentation/utility/reusable_widgets/cashback_container.dart';
 import 'package:transaction_heatmap/presentation/utility/reusable_widgets/icon_with_text_container.dart';
 import 'package:transaction_heatmap/presentation/utility/reusable_widgets/refer_earn_container.dart';
 import 'package:transaction_heatmap/presentation/utility/reusable_widgets/transaction_container.dart';
@@ -70,7 +71,7 @@ class DashboardPage extends StatelessWidget {
         children: [
           _buildTransactionContainer(
               containerHeight, containerWidth, monthlyTransactions),
-          _buildContainer(containerHeight, containerWidth, Icons.card_giftcard),
+          _buildCashbackContainer(containerHeight, containerWidth),
         ],
       ),
     );
@@ -159,6 +160,10 @@ class DashboardPage extends StatelessWidget {
       ),
       child: Icon(icon, size: 35, color: Colors.white),
     );
+  }
+
+  Widget _buildCashbackContainer(double height, double width) {
+    return CashbackContainer(height: height, width: width);
   }
 
   Widget _buildIconWithTextContainer(

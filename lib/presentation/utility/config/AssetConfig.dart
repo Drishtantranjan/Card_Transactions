@@ -9,6 +9,13 @@ class Assetconfig {
   static const String menuIC = "assets/icons/menu_ic.png";
   static const String referNEarn = "assets/images/refer.png";
 
+  //// CashBack Container Icons
+
+  static const String lenskart = "assets/images/dashboard/lenskart.jpeg";
+  static const String zomato = "assets/images/dashboard/zomato.png";
+  static const String amazon = "assets/images/dashboard/amazon.png";
+  static const String uber = "assets/images/dashboard/uber.png";
+
   ////// Navigation Bar Icons
 
   static const String settingIcon = "assets/icons/settings_ic.png";

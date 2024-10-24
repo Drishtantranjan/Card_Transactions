@@ -138,23 +138,25 @@ class MonthlyTransactions {
   final String month;
   final List<DailyTransactions> dailyTransactions;
 
-  MonthlyTransactions({
-    required this.month,
-    required this.dailyTransactions,
-  });
+  MonthlyTransactions({required this.month, required this.dailyTransactions});
 
-  // Calculate monthly spending for each category
   Map<String, double> calculateMonthlySpending() {
-    Map<String, double> categorySpending = {};
+    Map<String, double> categorySpending = {
+      'Food': 0.0,
+      'Shopping': 0.0,
+      'Travel': 0.0,
+      'Entertainment': 0.0,
+      'Health': 0.0,
+      'Rent': 0.0,
+    };
+
     for (var dailyTransaction in dailyTransactions) {
       for (var transaction in dailyTransaction.transactions) {
-        if (!transaction.isCredit) {
-          categorySpending[transaction.category] =
-              (categorySpending[transaction.category] ?? 0.0) +
-                  transaction.amount;
-        }
+        categorySpending[transaction.category] =
+            (categorySpending[transaction.category] ?? 0) + transaction.amount;
       }
     }
+
     return categorySpending;
   }
 }

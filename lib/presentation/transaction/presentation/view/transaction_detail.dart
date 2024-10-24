@@ -1,32 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:transaction_heatmap/models/transaction_model.dart';
 
 class TransactionDetailsPage extends StatelessWidget {
-  final String name;
-  final String description;
-  final String amount;
-  final String time;
-  final String iconPath;
-  final Color amountColor;
+  final Transaction transaction;
 
   TransactionDetailsPage({
-    required this.name,
-    required this.description,
-    required this.amount,
-    required this.time,
-    required this.iconPath,
-    required this.amountColor,
+    required this.transaction,
   });
 
   @override
   Widget build(BuildContext context) {
+    // Set amount color based on transaction type (credit or debit)
+    final amountColor = transaction.isCredit ? Colors.green : Colors.red;
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         elevation: 0,
-        title: Text('Transaction Details'),
+        title: const Text('Transaction Details'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -35,30 +29,31 @@ class TransactionDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               children: [
                 CircleAvatar(
                   radius: 25,
-                  backgroundImage: AssetImage(iconPath),
+                  // backgroundImage: AssetImage(transaction.iconPath),
                   backgroundColor: Colors.grey.shade900,
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name,
-                      style: TextStyle(
+                      transaction.category,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
-                      description,
-                      style: TextStyle(
+                      // transaction.description ??
+                      "No description available",
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 16,
                       ),
@@ -67,43 +62,44 @@ class TransactionDetailsPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 30),
-            Text(
+            const SizedBox(height: 30),
+            const Text(
               'Amount',
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 16,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
-              amount,
+              '\$${transaction.amount.toStringAsFixed(2)}',
               style: TextStyle(
                 color: amountColor,
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 30),
-            Text(
+            const SizedBox(height: 30),
+            const Text(
               'Transaction Time',
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 16,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
-              time,
-              style: TextStyle(
+              // transaction.time ??
+              'N/A',
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 backgroundColor: Colors.blueAccent,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -112,14 +108,14 @@ class TransactionDetailsPage extends StatelessWidget {
               onPressed: () {
                 // Perform any action like sharing the transaction
               },
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Share Transaction',
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),
