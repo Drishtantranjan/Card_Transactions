@@ -4,7 +4,7 @@ class CreditCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 220,
+      height: 230,
       margin: const EdgeInsets.all(16.0),
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
@@ -13,8 +13,8 @@ class CreditCardWidget extends StatelessWidget {
             Color.fromARGB(221, 241, 47, 47),
             Color.fromARGB(133, 160, 159, 159)
           ],
-          begin: Alignment.centerRight,
-          end: Alignment.centerLeft,
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
         ),
         borderRadius: BorderRadius.circular(16.0),
       ),

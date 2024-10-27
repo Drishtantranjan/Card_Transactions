@@ -14,6 +14,7 @@ dependencies:
   equatable: ^2.0.5
   fl_chart: ^0.69.0
   flutter_translate:
+  flutter_card_scanner_latest: ^1.0.5
   flutter_localizations:
     sdk: flutter
 

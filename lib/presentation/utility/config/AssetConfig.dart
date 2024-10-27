@@ -11,7 +11,7 @@ class Assetconfig {
 
   //// CashBack Container Icons
 
-  static const String lenskart = "assets/images/dashboard/lenskart.jpeg";
+  static const String lenskart = "assets/images/dashboard/lenskart.png";
   static const String zomato = "assets/images/dashboard/zomato.png";
   static const String amazon = "assets/images/dashboard/amazon.png";
   static const String uber = "assets/images/dashboard/uber.png";

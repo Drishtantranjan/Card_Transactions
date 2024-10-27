@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transaction_heatmap/models/transaction_model.dart';
+import 'package:transaction_heatmap/presentation/annual_transaction_screen.dart';
+import 'package:transaction_heatmap/presentation/transaction/presentation/widgets/monthly_spent_widget.dart';
+import 'package:transaction_heatmap/presentation/transaction/presentation/widgets/tab_bar_widgets.dart';
+import 'package:transaction_heatmap/presentation/utility/reusable_widgets/back_button_with_text.dart';
+import 'package:transaction_heatmap/presentation/Bloc/transaction_bloc.dart';
+import 'package:transaction_heatmap/repositories/transaction_repository.dart';
 
-class TransactionDetailsPage extends StatelessWidget {
+class TransactionDetailsPage extends StatefulWidget {
   final Transaction transaction;
 
   TransactionDetailsPage({
@@ -9,114 +16,59 @@ class TransactionDetailsPage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    // Set amount color based on transaction type (credit or debit)
-    final amountColor = transaction.isCredit ? Colors.green : Colors.red;
+  _TransactionDetailsPageState createState() => _TransactionDetailsPageState();
+}
 
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
+class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
+  int selectedIndex = 2; // Default to 'Month'
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) =>
+          TransactionBloc(TransactionRepository())..add(FetchTransactions()),
+      child: Scaffold(
         backgroundColor: Colors.black,
-        elevation: 0,
-        title: const Text('Transaction Details'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 25,
-                  // backgroundImage: AssetImage(transaction.iconPath),
-                  backgroundColor: Colors.grey.shade900,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 80),
+              BackButtonWithText(),
+              const SizedBox(height: 40),
+
+              // Conditionally render the CircularSegmentWidget or AnnualTransactionScreen
+              if (selectedIndex == 0 ||
+                  selectedIndex == 1 ||
+                  selectedIndex == 2)
+                CircularSegmentWidget(
+                  totalAmount: 19000,
+                  categorySpending: {
+                    'Food': 4000,
+                    'Shopping': 3000,
+                    'Travel': 3000,
+                    'Entertainment': 2000,
+                    'Health': 2000,
+                    'Rent': 5000,
+                  },
+                )
+              else if (selectedIndex == 3)
+                Expanded(
+                  child: AnnualTransactionWidget(),
                 ),
-                const SizedBox(width: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      transaction.category,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      // transaction.description ??
-                      "No description available",
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 30),
-            const Text(
-              'Amount',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 16,
+
+              const SizedBox(height: 20),
+
+              CustomTabBar(
+                onTabChanged: (index) {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
               ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              '\$${transaction.amount.toStringAsFixed(2)}',
-              style: TextStyle(
-                color: amountColor,
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 30),
-            const Text(
-              'Transaction Time',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              // transaction.time ??
-              'N/A',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
-            ),
-            const Spacer(),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(20),
-                backgroundColor: Colors.blueAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              onPressed: () {
-                // Perform any action like sharing the transaction
-              },
-              child: const Center(
-                child: Text(
-                  'Share Transaction',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -6,8 +6,8 @@ import 'package:transaction_heatmap/models/transaction_model.dart';
 import 'package:transaction_heatmap/presentation/widgets/MonthHeaderWidget.dart';
 import 'package:transaction_heatmap/presentation/widgets/TransactionBottomSheet.dart';
 
-class TransactionScreen extends StatelessWidget {
-  const TransactionScreen({super.key});
+class AnnualTransactionWidget extends StatelessWidget {
+  const AnnualTransactionWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class TransactionScreen extends StatelessWidget {
         } else if (state is TransactionError) {
           return Center(child: Text('Error: ${state.message}'));
         } else if (state is TransactionLoaded) {
-          return TransactionWidget(transactions: state.transactions);
+          return TransactionDisplayWidget(transactions: state.transactions);
         }
         return const SizedBox();
       },
@@ -28,10 +28,10 @@ class TransactionScreen extends StatelessWidget {
   }
 }
 
-class TransactionWidget extends StatelessWidget {
+class TransactionDisplayWidget extends StatelessWidget {
   final List<DailyTransactions> transactions;
 
-  const TransactionWidget({super.key, required this.transactions});
+  const TransactionDisplayWidget({super.key, required this.transactions});
 
   @override
   Widget build(BuildContext context) {
@@ -46,58 +46,46 @@ class TransactionWidget extends StatelessWidget {
         .map((t) => t.totalAmountSpent)
         .reduce((a, b) => a > b ? a : b);
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Transaction Heatmap',
-            style:
-                TextStyle(fontWeight: FontWeight.bold, color: Colors.white70),
-          ),
-          backgroundColor: const Color.fromARGB(255, 14, 17, 23),
-        ),
-        backgroundColor: const Color.fromARGB(255, 14, 17, 23),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SizedBox(
-              width: 1000,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 150,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(height: 10),
-                        Text("Mon", style: TextStyle(color: Colors.white)),
-                        Text("Wed", style: TextStyle(color: Colors.white)),
-                        Text("Fri", style: TextStyle(color: Colors.white)),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        MonthHeaderWidget(monthHeaders: monthHeaders),
-                        const SizedBox(height: 5),
-                        Expanded(
-                          child: TransactionGrid(
-                            rows: rows,
-                            columns: columns,
-                            reversedTransactions: reversedTransactions,
-                            maxSpending: maxSpending,
-                          ),
+    return Container(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SizedBox(
+            width: 1000,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // const SizedBox(
+                //   height: 150,
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //     children: [
+                //       SizedBox(height: 10),
+                //       Text("Mon", style: TextStyle(color: Colors.white)),
+                //       Text("Wed", style: TextStyle(color: Colors.white)),
+                //       Text("Fri", style: TextStyle(color: Colors.white)),
+                //     ],
+                //   ),
+                // ),
+
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MonthHeaderWidget(monthHeaders: monthHeaders),
+                      Expanded(
+                        child: TransactionGrid(
+                          rows: rows,
+                          columns: columns,
+                          reversedTransactions: reversedTransactions,
+                          maxSpending: maxSpending,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
